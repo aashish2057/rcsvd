@@ -1,4 +1,5 @@
 use clap::{arg, Command};
+mod csv_files;
 
 fn cli() -> Command {
     Command::new("rcsvd")
@@ -15,11 +16,10 @@ fn cli() -> Command {
 
 fn main() {
     let matches = cli().get_matches();
-
     match matches.subcommand() {
         Some(("read", matches)) => {
             let path = matches.get_one::<String>("PATH").expect("Path is missing");
-            println!("Path: {}", path);
+            csv_files::read_and_print::read(path);
         }
         _ => unreachable!(),
     }
